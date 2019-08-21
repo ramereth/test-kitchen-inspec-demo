@@ -1,0 +1,12 @@
+source 'https://rubygems.org'
+
+gem 'berkshelf'
+gem 'inspec'
+gem 'kitchen-ansible'
+gem 'kitchen-dokken'
+gem 'kitchen-inspec'
+gem 'kitchen-puppet'
+gem 'kitchen-sync'
+gem 'kitchen-terraform'
+gem 'kitchen-vagrant'
+gem 'test-kitchen'

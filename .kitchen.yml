@@ -1,0 +1,65 @@
+---
+verifier:
+  name: inspec
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+  product_name: chef
+  product_version: 14
+
+platforms:
+  - name: ubuntu-18.04
+    driver:
+      image: dokken/ubuntu-18.04
+  - name: centos-7
+    driver:
+      image: dokken/centos-7
+
+suites:
+  - name: chef
+    run_list:
+      - recipe[test-kitchen-demo]
+  - name: chef-docker
+    driver:
+      name: dokken
+      chef_version: 14
+    transport:
+      name: dokken
+    provisioner:
+      name: dokken
+    run_list:
+      - recipe[test-kitchen-demo]
+  - name: puppet
+    provisioner:
+      name: puppet_apply
+      manifests_path: manifests
+      modules_path: modules
+      manifest: local.pp
+      puppet_verbose: true
+      require_chef_for_busser: false
+      require_puppet_repo: false
+  - name: ansible
+    provisioner:
+      name: ansible_playbook
+      hosts: localhost
+      require_ansible_repo: true
+      ansible_verbose: true
+      ansible_version: latest
+      require_chef_for_busser: false
+      playbook: default.yml
+  - name: terraform
+    driver:
+      name: terraform
+    provisioner:
+      name: terraform
+    verifier:
+      name: terraform
+      systems:
+        - name: container
+          backend: ssh
+          port: 2222
+          hosts_output: container_hostname
+          password: root
+          user: root
