@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'berkshelf'
 gem 'inspec'
+gem 'inspec-bin'
 gem 'kitchen-ansible'
 gem 'kitchen-dokken'
 gem 'kitchen-inspec'
